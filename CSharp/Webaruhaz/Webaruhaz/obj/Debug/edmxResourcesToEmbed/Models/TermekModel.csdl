@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="TermekModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="TermekModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TermekSet" EntityType="TermekModel.Termek" />
+  </EntityContainer>
+  <EntityType Name="Termek">
+    <Key>
+      <PropertyRef Name="TermekID" />
+    </Key>
+    <Property Name="TermekID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ar" Type="String" Nullable="false" />
+    <Property Name="Nev" Type="String" Nullable="false" />
+  </EntityType>
+</Schema>
