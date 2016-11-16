@@ -33,7 +33,7 @@
 </script>
 
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-4">
         <h3 style="white-space:nowrap">Fizetendő: 
             <span id="cart-total">
                 @Model.CartTotal Ft.-
@@ -46,7 +46,7 @@
         <hr />
         <div id="update-message"></div>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-8">
         <!-- Kosár tartalma -->
         @foreach (var item in Model.CartItems)
         {
