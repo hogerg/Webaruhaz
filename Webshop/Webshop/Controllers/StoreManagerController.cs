@@ -128,5 +128,56 @@ namespace Webshop.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult Categories()
+        {
+            return View(db.Categories.ToList());
+        }
+
+        public ActionResult CreateCategory()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateCategory([Bind(Include = "Name,PictureURL")] Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                Console.WriteLine("Valid category");
+                db.Categories.Add(category);
+                db.SaveChanges();
+                return RedirectToAction("Categories");
+            }
+
+            Console.WriteLine("Invalid category");
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "Name", category.CategoryID);
+            return View(category);
+        }
+
+        public ActionResult DeleteCategory(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Category category = db.Categories.Find(id);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+            return View(category);
+        }
+
+        [HttpPost, ActionName("DeleteCategory")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteCategoryConfirmed(int id)
+        {
+            Category category = db.Categories.Find(id);
+            db.Categories.Remove(category);
+            db.SaveChanges();
+            return RedirectToAction("Categories");
+        }
     }
 }

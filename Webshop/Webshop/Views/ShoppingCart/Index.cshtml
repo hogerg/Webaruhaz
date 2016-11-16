@@ -13,78 +13,58 @@
             var recordToDelete = $(this).attr("data-id");
             if (recordToDelete != '') {
                 // Perform the ajax post
-                $.ajax({
-                    type: "POST",
-                    url: "/ShoppingCart/RemoveFromCart",
-                    data: { 'id' : recordToDelete },
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success:
-                        function (data) {
-                            // Successful requests get here
-                            // Update the page elements
-                            if (data.ItemCount == 0) {
-                                $('#row-' + data.DeleteId).fadeOut('slow');
-                            } else {
-                                $('#item-count-' + data.DeleteId).text(data.ItemCount);
-                            }
-                            $('#cart-total').text(data.CartTotal);
-                            $('#update-message').text(data.Message);
-                            //$('#cart-status').text('Cart (' + data.CartCount + ')');
+                $.post("/ShoppingCart/RemoveFromCart", { "id": recordToDelete },
+                    function (data) {
+                        // Successful requests get here
+                        // Update the page elements
+                        if (data.ItemCount == 0) {
+                            $('#row-' + data.DeleteId).fadeOut('slow');
+                        } else {
+                            $('#item-count-' + data.DeleteId).text(data.ItemCount + " db");
                         }
-                });
+
+                        $('#cart-total').text(data.CartTotal + " Ft.-");
+                        $('#update-message').text(data.Message);
+                        $('#cart-status').text('Kosár (' + data.CartCount + ')');
+                    });
             }
         });
     });
 </script>
-<h3>
-    <em>Review</em> your cart:
-</h3>
-<p class="button">
-    @Html.ActionLink("Checkout>> ", "AddressAndPayment", "Checkout")
-</p>
-<div id="update-message">
+
+<div class="row">
+    <div class="col-md-2">
+        <h3 style="white-space:nowrap">Fizetendő: 
+            <span id="cart-total">
+                @Model.CartTotal Ft.-
+            </span>
+        </h3>
+        <hr />
+        <span>
+            @Html.ActionLink("Tovább a fizetésre", "AddressAndPayment", "Checkout", null, new { @class = "btn btn-primary" })
+        </span>
+        <hr />
+        <div id="update-message"></div>
+    </div>
+    <div class="col-md-10">
+        <!-- Kosár tartalma -->
+        @foreach (var item in Model.CartItems)
+        {
+            <div class="col-md-4 thumbnail" id="row-@item.RecordId">
+                <img class="img-responsive" src="@item.Product.Category.PictureURL" alt="">
+                <div class="caption text-center" style="white-space: nowrap">
+                    <h5>
+                        @Html.ActionLink(item.Product.Name, "Details", "Store", new { id = item.ProductId }, null)
+                    </h5>
+                    <h4>@item.Product.Price Ft.-</h4>
+                    <h4 id="item-count-@item.RecordId">
+                        @item.Count db
+                    </h4>
+                    <a href="#" class="RemoveLink" data-id="@item.RecordId">
+                        Eltávolítás
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
 </div>
-<table>
-    <tr>
-        <th>
-            Termék neve
-        </th>
-        <th>
-            Darab ár
-        </th>
-        <th>
-            Mennyiség
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model.CartItems)
-    {
-        <tr id="row-@item.RecordId">
-            <td>
-                @Html.ActionLink(item.Product.Name, "Details", "Store", new { id = item.ProductId }, null)
-            </td>
-            <td>
-                @item.Product.Price
-            </td>
-            <td id="item-count-@item.RecordId">
-                @item.Count
-            </td>
-            <td>
-                <a href="#" class="RemoveLink" data-id="@item.RecordId">
-                    Eltávolítás
-                </a>
-            </td>
-        </tr>
-    }
-    <tr>
-        <td>
-            Teljes összeg
-        </td>
-        <td></td>
-        <td></td>
-        <td id="cart-total">
-            @Model.CartTotal
-        </td>
-    </tr>
-</table>

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Webshop.Models.Category>
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+<h2>Kategóriák</h2>
+
+<p>
+    @Html.ActionLink("Kategória létrehozása", "CreateCategory") |
+    @Html.ActionLink("Vissza", "Index")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Kategória
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Törlés", "DeleteCategory", new { id = item.CategoryID })
+            </td>
+        </tr>
+    }
+
+</table>

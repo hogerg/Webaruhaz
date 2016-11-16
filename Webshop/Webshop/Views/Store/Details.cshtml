@@ -7,7 +7,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 text-center">
-            <img class="img-responsive" src="~/Content/mocklaptop.jpg" alt="">
+            <img class="img-responsive" src="@Model.Category.PictureURL" alt="">
+            <br />
             <div class="row-fluid">
                 @Html.ActionLink("Kosárba", "AddToCart", "ShoppingCart", new { id = Model.ProductID }, new { @class = "btn btn-primary" })
             </div>

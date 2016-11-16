@@ -1,15 +1,4 @@
 ﻿@model IEnumerable<Webshop.Models.Product>
-@helper Truncate(string input, int length)
-{
-    if (input.Length <= length)
-    {
-            @input
-    }
-    else
-    {
-            @input.Substring(0, length)<text>...</text>
-    }
-}
 
 @{
     ViewBag.Title = "Index";
@@ -18,7 +7,8 @@
 <h2>Terméklista</h2>
 
 <p>
-    @Html.ActionLink("Termék létrehozása", "Create")
+    @Html.ActionLink("Termék létrehozása", "Create") |
+    @Html.ActionLink("Kategóriák kezelése", "Categories")
 </p>
 <table class="table">
     <tr>

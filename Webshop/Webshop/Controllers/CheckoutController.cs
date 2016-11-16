@@ -30,7 +30,8 @@ namespace Webshop.Controllers
 
             try
             {
-                if (string.Equals(values["PromoCode"], PromoCode, StringComparison.OrdinalIgnoreCase) == false)
+                //if (string.Equals(values["PromoCode"], PromoCode, StringComparison.OrdinalIgnoreCase) == false)
+                if (!values["Accept"].Contains("true"))
                 {
                     return View(order);
                 }

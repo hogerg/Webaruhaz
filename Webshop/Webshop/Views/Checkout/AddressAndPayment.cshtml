@@ -14,18 +14,17 @@
         <legend>Szállítási információk</legend>
         @Html.EditorForModel()
     </fieldset>
+    <br />
     <fieldset>
-        <legend>Fizetés</legend>
-        <p>
-            A "FREE" promokód szükséges
-        </p>
-        <div class="editor-label">
-            @Html.Label("Promo Code")
-        </div>
-        <div class="editor-field">
-            @Html.TextBox("PromoCode")
+        <div class="row">
+            <div class="col-md-1 editor-field text-right">
+                @Html.CheckBox("Accept")
+            </div>
+            <div class="col-md-11 editor-label">
+                @Html.Label("Elfogadom az általános felhasználói feltételeket")
+            </div>
         </div>
     </fieldset>
-
+    <hr />
     <input type="submit" value="Rendelés feladása" />
 }

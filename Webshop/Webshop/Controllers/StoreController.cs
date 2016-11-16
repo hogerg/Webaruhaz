@@ -13,10 +13,29 @@ namespace Webshop.Controllers
 
         //
         // GET: /Store/
-        public ActionResult Index()
+        public ActionResult Index(string keyword, int? category)
         {
-            //return View(storeDB.Categories.ToList());
-            return View(storeDB.Products.ToList());
+            ViewBag.Categories = storeDB.Categories.ToList();
+            if (!String.IsNullOrEmpty(keyword))
+            {
+                if (category == null)
+                {
+                    return View(storeDB.Products.Where(p => p.Name.Contains(keyword)));
+                }
+                else
+                {
+                    return View(storeDB.Products.Where(p => p.Name.Contains(keyword) && p.CategoryID == category));
+                }
+            }
+
+            if (category == null)
+            {
+                return View(storeDB.Products.ToList());
+            }
+            else
+            {
+                return View(storeDB.Products.Where(p => p.CategoryID == category));
+            }
         }
         //
         // GET: /Store/Browse

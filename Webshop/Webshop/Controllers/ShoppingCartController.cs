@@ -47,7 +47,7 @@ namespace MvcMusicStore.Controllers
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
             // Get the name of the product to display confirmation
-            string productName = storeDB.Carts.Single(item => item.ProductId == id).Product.Name;
+            string productName = storeDB.Carts.Single(item => item.RecordId == id).Product.Name;
 
             // Remove from cart
             int itemCount = cart.RemoveFromCart(id);

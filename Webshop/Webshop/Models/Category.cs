@@ -9,6 +9,7 @@ namespace Webshop.Models
     {
         public int CategoryID { get; set; }
         public string Name { get; set; }
+        public string PictureURL { get; set; }
         public List<Product> Products { get; set; }
     }
 }

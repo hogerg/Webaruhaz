@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Webshop.Models;
+using System.Net.Mail;
 
 namespace Webshop.Controllers
 {
@@ -166,6 +167,21 @@ namespace Webshop.Controllers
                 if (result.Succeeded)
                 {
                     MigrateShoppingCart(model.Email);
+
+                    MailMessage mail = new MailMessage();
+
+                    SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
+                    smtpServer.UseDefaultCredentials = false;
+                    smtpServer.EnableSsl = true;
+                    smtpServer.Credentials = new System.Net.NetworkCredential("hogergwebshop", "szakdolgozat");
+                    smtpServer.Port = 587; // Gmail works on this port    
+
+                    mail.From = new MailAddress("hogergwebshop@gmail.com");
+                    mail.To.Add(user.Email);
+                    mail.Subject = "Webshop regisztráció";
+                    mail.Body = "Köszönjük a regisztrációt!";
+
+                    smtpServer.Send(mail);
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     

@@ -194,9 +194,15 @@
     <Compile Include="ViewModels\ShoppingCartViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\mock_webshop.jpg" />
+    <Content Include="Content\images\mock_periphery.jpg" />
+    <Content Include="Content\images\mock_hdd.jpg" />
+    <Content Include="Content\images\mock_memory.jpg" />
+    <Content Include="Content\images\mock_videocard.jpg" />
+    <Content Include="Content\images\mock_monitor.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\mocklaptop.jpg" />
+    <Content Include="Content\images\mock_cpu.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -262,6 +268,9 @@
     <Content Include="Views\Checkout\Complete.cshtml" />
     <Content Include="Views\ShoppingCart\CartSummary.cshtml" />
     <Content Include="Views\Shared\_Lorem.cshtml" />
+    <Content Include="Views\StoreManager\Categories.cshtml" />
+    <Content Include="Views\StoreManager\CreateCategory.cshtml" />
+    <Content Include="Views\StoreManager\DeleteCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
