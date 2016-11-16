@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Webshop.Models.Product>
+
+@{
+    ViewBag.Title = "Store";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="input-group">
+            <input class="form-control" id="inputKeres" type="text">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Keresés</button>
+            </span>
+        </div>
+        <hr />
+        <div class="form-group">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Kategória
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Egyik</a></li>
+                    <li><a href="#">Másik</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr />
+    </div>
+    <div class="col-md-8">
+        <!-- Termeklista -->
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 thumbnail">
+                <img class="img-responsive" src="~/Content/mocklaptop.jpg" alt="">
+                <div class="caption text-center">
+                    <h4>
+                        @Html.ActionLink(item.Name, "Details", new { id = item.ProductID })
+                    </h4>
+                    <h4>@Html.DisplayFor(modelItem => item.Price) Ft.-</h4>
+                </div>
+            </div>
+        }
+    </div>
+</div>

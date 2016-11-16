@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Webshop.Models.Product>
+@helper Truncate(string input, int length)
+{
+    if (input.Length <= length)
+    {
+            @input
+    }
+    else
+    {
+            @input.Substring(0, length)<text>...</text>
+    }
+}
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Terméklista</h2>
+
+<p>
+    @Html.ActionLink("Termék létrehozása", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Kategória
+        </th>
+        <th>
+            Termék neve
+        </th>
+        <th>
+            Ár
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.ActionLink("Módosítás", "Edit", new { id=item.ProductID }) |
+            @Html.ActionLink("Részletek", "Details", new { id=item.ProductID }) |
+            @Html.ActionLink("Törlés", "Delete", new { id=item.ProductID })
+        </td>
+    </tr>
+}
+
+</table>

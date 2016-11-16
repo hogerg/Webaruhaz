@@ -1,0 +1,15 @@
+﻿@model Webshop.Models.Category
+
+@{
+    ViewBag.Title = "Browse";
+}
+
+<h2>Browsing category: @Model.Name</h2>
+<ul>
+    @foreach (var product in Model.Products)
+    {
+        <li>
+            @Html.ActionLink(product.Name,"Details", new { id = product.ProductID })
+        </li>
+    }
+</ul>

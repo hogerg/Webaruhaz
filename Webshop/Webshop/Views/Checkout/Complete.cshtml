@@ -1,0 +1,10 @@
+﻿@model int
+@{
+    ViewBag.Title = "Checkout Complete";
+}
+
+<h2>Sikeres rendelés</h2>
+<p>Köszönjük rendelését! Az azonosítója: @Model</p>
+<p>
+    Folytathatja a vásárlást a következő linken: @Html.ActionLink("Termékek", "Index", "Home")
+</p>

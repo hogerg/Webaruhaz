@@ -1,0 +1,45 @@
+﻿@model Webshop.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Biztosan törli?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Kategória
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+
+        <dt>
+            Név
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            Ár
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Törlés" class="btn btn-default" /> |
+            @Html.ActionLink("Vissza", "Index")
+        </div>
+    }
+</div>
