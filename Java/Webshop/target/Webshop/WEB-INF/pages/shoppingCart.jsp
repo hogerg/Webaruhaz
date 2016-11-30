@@ -1,0 +1,88 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+ 
+<title>Kosár</title>
+
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/resources/css/Site.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/resources/css/bootstrap.css">
+<script src="${pageContext.servletContext.contextPath}/resources/js/jquery-1.10.2.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/bootstrap.js"></script>
+ 
+</head>
+<body>
+    <jsp:include page="_header.jsp" />
+
+	<div class="row">
+	    <div class="col-md-4 text-center">
+	        <h3 style="white-space:nowrap">Fizetendo: 
+	            <span id="cart-total">
+	                <fmt:formatNumber type="number" 
+            			maxFractionDigits="0" value="${totalAmount}" /> Ft.-
+	            </span>
+	        </h3>
+	        <hr/>
+	        <span>
+	        	<a class="btn btn-primary" href="${pageContext.request.contextPath}/shoppingCartCustomer">Tovább a fizetésre</a>
+	        </span>
+	        <hr />
+	        <div id="update-message"></div>
+	    </div>
+	    <div class="col-md-8">
+	        <!-- Kosár tartalma -->
+	        <c:if test="${not empty cartForm and not empty cartForm.cartLines   }">
+		        <form:form method="POST" modelAttribute="cartForm"
+		            action="${pageContext.request.contextPath}/shoppingCart">
+		 
+		            <c:forEach items="${cartForm.cartLines}" var="cartLineInfo"
+		                varStatus="varStatus">
+		                <div class="col-md-4 thumbnail">
+		                	<img class="img-responsive" 
+			            		src="${pageContext.servletContext.contextPath}/resources/img/categories/${ProductImages.get(cartLineInfo.productInfo.id)}.jpg" 
+			            		alt="">
+		                	<div class="caption text-center" style="white-space: nowrap">
+		                		<h5>
+		                			${cartLineInfo.productInfo.name}
+		                		</h5>
+		                		<h5>
+		                			Termékkód: ${cartLineInfo.productInfo.id} <form:hidden
+		                                path="cartLines[${varStatus.index}].productInfo.id" />
+		                		</h5>
+		                		<h5>
+		                			Ár: 
+		                			<fmt:formatNumber type="number" 
+            							maxFractionDigits="0" value="${cartLineInfo.productInfo.price}" /> Ft.-
+		                		</h5>
+		                		<div>
+		                			Darabszám: 
+		                			<form:input path="cartLines[${varStatus.index}].quantity" />
+		                		</div>
+		                		<br/>
+		                		<div>
+		                			Alösszeg:
+		                			<fmt:formatNumber type="number" 
+            							maxFractionDigits="0" value="${cartLineInfo.amount}" /> Ft.-
+		                		</div>
+		                		<br/>
+		                		<a href="${pageContext.request.contextPath}/shoppingCartRemoveProduct?id=${cartLineInfo.productInfo.id}">
+		                        	Eltávolítás 
+		                        </a>
+		                	</div>
+   
+		                </div>
+		            </c:forEach>
+		        </form:form>
+		    </c:if>
+	    </div>
+	</div>
+ 
+    
+ 
+ 
+</body>
+</html>
