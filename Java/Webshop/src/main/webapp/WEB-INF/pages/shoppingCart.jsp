@@ -1,21 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
- 
-<!DOCTYPE html>
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <head>
 <meta charset="UTF-8">
- 
 <title>Kosár</title>
-
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/resources/css/Site.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/resources/css/bootstrap.css">
-<script src="${pageContext.servletContext.contextPath}/resources/js/jquery-1.10.2.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/js/bootstrap.js"></script>
- 
 </head>
-<body>
+
     <jsp:include page="_header.jsp" />
 
 	<div class="row">
@@ -81,8 +72,4 @@
 	    </div>
 	</div>
  
-    
- 
- 
-</body>
-</html>
+    <jsp:include page="_footer.jsp" />

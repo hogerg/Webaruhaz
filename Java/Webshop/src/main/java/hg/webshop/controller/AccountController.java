@@ -70,8 +70,13 @@ public class AccountController {
             BindingResult result, //
             final RedirectAttributes redirectAttributes) {
 
+    	if(customerDAO.findAccount(accountInfo.getEmail()) != null) {
+    		model.addAttribute("error", "Ez az Email cím már használatban van!");
+    		return "register";
+    	}    	
         if (result.hasErrors()) {
         	model.addAttribute("error", "Hibás adatok!");
+        	model.addAttribute("email", accountInfo.getEmail());
             return "register";
         }
         try {

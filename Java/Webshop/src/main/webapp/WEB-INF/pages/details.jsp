@@ -1,19 +1,8 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
- 
-<!DOCTYPE html>
-<html>
+
 <head>
 <meta charset="UTF-8">
 <title>Termék részletei</title>
-
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/resources/css/Site.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/resources/css/bootstrap.css">
-<script src="${pageContext.servletContext.contextPath}/resources/js/jquery-1.10.2.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/js/bootstrap.js"></script>
- 
-</head>
 <body>
  
     <jsp:include page="_header.jsp" />
@@ -39,15 +28,12 @@
 	                Kategória: ${category.name}
 	            </h3>
 	            <h3>
-	                Ár: <fmt:formatNumber type="number" 
-            					maxFractionDigits="0" value="${product.price}" /> Ft.-
+	                Ár: <fmt:formatNumber type="number" maxFractionDigits="0" value="${product.price}" /> Ft.-
 	            </h3>
 	            <hr />
+	            <jsp:include page="_lorem.jsp" />
 	        </div>
 	    </div>
 	</div>
 
- 
- 
-</body>
-</html>
+	<jsp:include page="_footer.jsp" />

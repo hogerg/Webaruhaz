@@ -1,21 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
- 
-<!DOCTYPE html>
-<html>
+
 <head>
 <meta charset="UTF-8">
- 
 <title>Bejelentkezés</title>
- 
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/resources/css/Site.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/resources/css/bootstrap.css">
-<script src="${pageContext.servletContext.contextPath}/resources/js/jquery-1.10.2.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/js/bootstrap.js"></script>
- 
 </head>
-<body>
- 
- 
+
     <jsp:include page="_header.jsp" />
  
  
@@ -24,7 +13,7 @@
     
     <br/>
  
-    <div class="login-container text-center">
+    <div class="text-center">
  
         <!-- /login?error=true -->
         <c:if test="${param.error == 'true'}">
@@ -56,7 +45,5 @@
         <span class="error-message">${error }</span>
  
     </div>
- 
- 
-</body>
-</html>
+
+    <jsp:include page="_footer.jsp" />

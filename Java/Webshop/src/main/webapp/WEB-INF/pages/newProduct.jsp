@@ -1,26 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
- 
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
- 
-<!DOCTYPE html>
-<html>
+
 <head>
 <meta charset="UTF-8">
-<title>Kategóriák kezelése</title>
-
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/resources/css/Site.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/resources/css/bootstrap.css">
-<script src="${pageContext.servletContext.contextPath}/resources/js/jquery-1.10.2.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/js/bootstrap.js"></script>
- 
+<title>Termék</title>
 </head>
-<body>
-	
+
     <jsp:include page="_header.jsp" />
     
     <br/>
+    
+    <h2 class="text-center">Termék ${not empty currentCategory ? 'módosítása' : 'létrehozása' }</h2>
+	<hr/>
  
     <c:if test="${not empty errorMessage }">
       <div class="error-message">
@@ -58,10 +49,9 @@
 
         </table>
         <div class="text-center">
-        	<input type="submit" value="Létrehozás" class="btn btn-default"/> |
+        	<input type="submit" value="Mentés" class="btn btn-default"/> |
         	<a href="/Webshop/manageProducts">Vissza</a>
         </div>
     </form:form>
  
-</body>
-</html>
+    <jsp:include page="_footer.jsp" />

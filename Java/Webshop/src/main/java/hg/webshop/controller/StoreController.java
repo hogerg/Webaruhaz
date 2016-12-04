@@ -139,6 +139,15 @@ public class StoreController {
             ProductInfo productInfo = new ProductInfo(product);
  
             cartInfo.addProduct(productInfo, 1);
+            
+            Integer cartAmount = (Integer)request.getSession().getAttribute("cartAmount");
+            if(cartAmount == null){
+            	request.getSession().setAttribute("cartAmount", 1);
+            }
+            else {
+            	request.getSession().setAttribute("cartAmount", ++cartAmount);
+            }
+            
         }
         return "redirect:/productList";
     }
@@ -157,6 +166,9 @@ public class StoreController {
             ProductInfo productInfo = new ProductInfo(product);
  
             cartInfo.removeProduct(productInfo);
+            
+            Integer cartAmount = (Integer)request.getSession().getAttribute("cartAmount");
+            request.getSession().setAttribute("cartAmount", --cartAmount);
  
         }
         return "redirect:/shoppingCart";

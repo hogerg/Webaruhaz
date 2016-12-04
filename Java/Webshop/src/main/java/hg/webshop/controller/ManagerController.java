@@ -1,8 +1,14 @@
 package hg.webshop.controller;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -108,7 +115,8 @@ public class ManagerController {
     }
     
     @RequestMapping(value = { "/manageCategories/newCategory" }, method = RequestMethod.POST)
-    public String newCategorySave(Model model, //
+    public String newCategorySave(HttpServletRequest request, Model model, 
+    		@RequestParam("fileToUpload") MultipartFile file,//
             @ModelAttribute("categoryForm") @Validated CategoryInfo categoryInfo, //
             BindingResult result, //
             final RedirectAttributes redirectAttributes) {
@@ -117,7 +125,53 @@ public class ManagerController {
             return "newCategory";
         }
         try {
-        	categoryInfo.setPicName("mock_tetris");
+        	if(!file.isEmpty()){
+        		String contentType = file.getContentType();
+        		if(!contentType.split("/")[0].equals("image")){
+        			throw new Exception("Nem képfájl!");
+        		}
+        		
+        		String filename = UUID.randomUUID().toString();
+        		String realPath = request.getServletContext().getRealPath("/");
+        		String path = realPath + "/resources/img/categories/" + filename + ".jpg";
+        		BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
+        		BufferedImage blank = ImageIO.read(new File(realPath + "/resources/img/categories/", "blank.jpg"));
+        		
+        		float maxDim = 600;
+        		float src_w = src.getWidth();
+        		float src_h = src.getHeight();
+        		float ratio = src_w / src_h;
+        		
+        		if(src_w > maxDim || src_h > maxDim){
+        			if(ratio > 1){
+        				src_w = maxDim;
+        				src_h = maxDim / ratio;
+        			}
+        			else{
+        				src_w = maxDim * ratio;
+        				src_h = maxDim;
+        			}
+        		}
+        		
+        		int hoffset = (int) ((600 - src_w)/2);
+        		int voffset = (int) ((600 - src_h)/2);
+        		
+        		int imageType = BufferedImage.TYPE_INT_RGB;
+                BufferedImage scaledSrc = new BufferedImage((int)src_w, (int)src_h, imageType);
+                Graphics g = scaledSrc.createGraphics();
+                g.drawImage(src, 0, 0, (int)src_w, (int)src_h, null); 
+                g.dispose();
+        		
+        		BufferedImage combined = new BufferedImage(600, 600, BufferedImage.TYPE_INT_RGB);
+        		Graphics cg = combined.getGraphics();
+        		cg.drawImage(blank, 0, 0, null);
+        		cg.drawImage(src, hoffset, voffset, null);
+
+        		File destination = new File(path);
+        		ImageIO.write(combined, "jpg", destination);
+        		
+        		categoryInfo.setPicName(filename);
+        	}
             categoryDAO.save(categoryInfo);
         } catch (Exception e) {
             String message = e.getMessage();
@@ -181,6 +235,8 @@ public class ManagerController {
             final RedirectAttributes redirectAttributes) {
  
         if (result.hasErrors()) {
+        	List<CategoryInfo> categories = categoryDAO.queryCategories();
+        	model.addAttribute("Categories", categories);
             return "newProduct";
         }
         try {

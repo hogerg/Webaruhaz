@@ -27,6 +27,14 @@ public class CategoryDAOImpl implements CategoryDAO{
         crit.add(Restrictions.eq("id", id));
         return (Category) crit.uniqueResult();
 	}
+	
+	@Override
+	public Category findCategory(String name){
+		Session session = sessionFactory.getCurrentSession();
+        Criteria crit = session.createCriteria(Category.class);
+        crit.add(Restrictions.eq("name", name));
+        return (Category) crit.uniqueResult();
+	}
     
 	@Override
     public CategoryInfo findCategoryInfo(int id){

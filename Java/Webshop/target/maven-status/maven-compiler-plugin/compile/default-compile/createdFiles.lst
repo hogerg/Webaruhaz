@@ -10,6 +10,7 @@ hg\webshop\controller\ManagerController.class
 hg\webshop\dao\impl\ProductDAOImpl.class
 hg\webshop\dao\CustomerDAO.class
 hg\webshop\controller\AccountController.class
+hg\webshop\util\FileUploadServlet.class
 hg\webshop\config\WebSecurityConfig.class
 hg\webshop\entity\Customer.class
 hg\webshop\util\Utils.class

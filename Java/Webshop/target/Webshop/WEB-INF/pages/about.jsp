@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html>
 <head>
 <meta charset="UTF-8">
- 
-<title>Elektronikai webáruház</title>
- 
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/resources/css/Site.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/resources/css/bootstrap.css">
-<script src="${pageContext.servletContext.contextPath}/resources/js/jquery-1.10.2.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/js/bootstrap.js"></script>
-
+<title>Információ</title>
 </head>
-<body>
- 
  
     <jsp:include page="_header.jsp" />
  	
- 	<div class="col-md-8 col-md-offset-2 text-center">
+ 	<div class="text-center">
 		<h2>Elektronikai webáruház</h2>
 		<hr/>
 		<p>
@@ -36,7 +25,5 @@
 		</p>
 	</div>
     
-    
+    <jsp:include page="_footer.jsp" />
   
-</body>
-<

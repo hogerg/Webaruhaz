@@ -10,6 +10,8 @@ public interface CategoryDAO {
     
     public Category findCategory(int id);
     
+    public Category findCategory(String name);
+    
     public CategoryInfo findCategoryInfo(int id) ;
 
     public List<CategoryInfo> queryCategories();
