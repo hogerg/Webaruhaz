@@ -4,7 +4,11 @@ $this->assign('title','Termék');
 $this->display('_Header.tpl.php');
 ?>
 
+<h2 class="text-center">Termék <?php echo ($this->inputData['name'] == '') ? 'létrehozása' : 'módosítása';?></h2>
+	<hr/>
+
 	<form method="POST" action="./newproduct">
+		<input type="hidden" value="<?php echo $this->inputData['id']; ?>" name="id" />
         <table style="margin: 0px auto;">
 
             <tr>

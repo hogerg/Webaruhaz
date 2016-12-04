@@ -4,7 +4,6 @@ $this->assign('title','Kosár');
 $this->display('_Header.tpl.php');
 ?>
 
-<div class="row">
 	    <div class="col-md-4 text-center">
 	        <h3 style="white-space:nowrap">Fizetendő: 
 	            <span id="cart-total">
@@ -68,7 +67,6 @@ $this->display('_Header.tpl.php');
 				}
 			?>
 	    </div>
-	</div>
 
 <?php
 	$this->display('_Footer.tpl.php');

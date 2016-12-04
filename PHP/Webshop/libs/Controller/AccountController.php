@@ -4,6 +4,7 @@
 /** import supporting libraries */
 require_once("AppBaseController.php");
 require_once("Model/Customer.php");
+require_once("Model/Product.php");
 
 class AccountController extends AppBaseController
 {
@@ -22,7 +23,7 @@ class AccountController extends AppBaseController
 		// TODO: if authentiation is required for this entire controller, for example:
 		// $this->RequirePermission(ExampleUser::$PERMISSION_USER,'SecureExample.LoginForm');
 	}
-
+	
 	public function Login()
 	{
 		if(isset($_SESSION['authUser']))
@@ -83,16 +84,17 @@ class AccountController extends AppBaseController
 					}
 					else
 					{
-						$_SESSION['authUser'] = $email;
+						$_SESSION['authUser'] = array($email, $c->UserRole);
 						$url = RequestUtil::Get('redirecturl');
 						if(Empty($url))
 						{
-							$this->Render('index');
+							header('location: ./productlist');
+							exit();
 						}
 						else
 						{
 							header('location: ./' . $url);
-							exit;
+							exit();
 						}
 					}
 				}

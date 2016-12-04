@@ -4,6 +4,7 @@ $this->assign('title','Kategóriák kezelése');
 $this->display('_Header.tpl.php');
 ?>
 
+
 <h2>Kategóriák</h2>
     
     <p>

@@ -6,7 +6,7 @@ $this->display('_Header.tpl.php');
 
 <div>
  	<h2 class="text-center">Elektronikai webáruház</h2>
- 	<img class=" col-md-8 col-md-offset-2 img-responsive" src="./images/mock_webshop.jpg" alt="">
+ 	<img class="img-responsive col-md-6 col-md-offset-3" src="./images/mock_webshop.jpg" alt="">
 </div>
 
 <?php

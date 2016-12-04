@@ -4,7 +4,6 @@
 	$this->display('_Header.tpl.php');
 ?>
 
-<div class="row">
     <div class="col-md-4">
         <form method="POST" class="input-group text-center">
             <input class="form-control" id="inputKeres" type="text" name="keyword">
@@ -58,7 +57,6 @@
 			}
 		?>
     </div>
-</div>
 
 <?php
 	$this->display('_Footer.tpl.php');

@@ -4,7 +4,7 @@ $this->assign('title','Információ');
 $this->display('_Header.tpl.php');
 ?>
 
-<div class="col-md-8 col-md-offset-2 text-center">
+<div class="text-center">
 	<h2>Elektronikai webáruház</h2>
 	<hr/>
 	<p>

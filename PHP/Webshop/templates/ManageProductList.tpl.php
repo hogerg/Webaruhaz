@@ -4,6 +4,7 @@ $this->assign('title','Termékek kezelése');
 $this->display('_Header.tpl.php');
 ?>
 
+
 <h2>Terméklista</h2>
     
     <p>

@@ -44,6 +44,11 @@ class Product extends ProductDAO
 		// OnSave must return true or Phreeze will cancel the save operation
 		return true;
 	}
+	
+	public function CategoryDeleted()
+	{
+		$this->Delete();
+	}
 
 }
 

@@ -11,7 +11,7 @@ $this->display('_Header.tpl.php');
 	            		src="./images/categories/<?php echo $this->category->PicName; ?>.jpg" 
 	            		alt="">
 	            <div class="row-fluid">
-	                <a class="btn btn-primary" href="#">Kosárba</a>
+	                <a class="btn btn-primary" href="./additem?id=<?php echo $this->product->Id; ?>">Kosárba</a>
 	            </div>
 	        </div>
 	        <div class="col-md-6">
@@ -28,6 +28,7 @@ $this->display('_Header.tpl.php');
 	                Ár: <?php echo $this->product->Price; ?> Ft.-
 	            </h3>
 	            <hr />
+	            <?php $this->display('_Lorem.tpl.php'); ?>
 	        </div>
 	    </div>
 	</div>

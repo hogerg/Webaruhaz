@@ -7,6 +7,7 @@ require_once("Model/Product.php");
 require_once("Model/Order.php");
 require_once("Model/OrderDetails.php");
 
+
 class StoreController extends AppBaseController
 {
 
@@ -26,7 +27,7 @@ class StoreController extends AppBaseController
 	}
 
 	public function List()
-	{
+	{		
 		require_once('Model/ProductCriteria.php');
 		$criteria = new ProductCriteria();
 
@@ -107,11 +108,8 @@ class StoreController extends AppBaseController
 			}
 		}
 
-		?>
-			<script type="text/javascript">
-				window.location.href = './productlist';
-			</script>
-		<?php
+		header("Location: ./productlist");
+		exit();
 	}
 	
 	public function ShoppingCartRemove()
@@ -126,11 +124,8 @@ class StoreController extends AppBaseController
 			}
 		}
 		
-		?>
-			<script type="text/javascript">
-				window.location.href = './shoppingcart';
-			</script>
-		<?php
+		header("Location: ./shoppingcart");
+		exit();
 	}
 	
 	public function ShoppingCartDrop()
@@ -154,13 +149,33 @@ class StoreController extends AppBaseController
 		}
 		else if(!isset($_SESSION['authUser']))
 		{
-			header('location: ./login');
-			exit;
+			header('location: ./login?redirecturl=shoppingcart');
+			exit();
 		}
 		else
 		{
+			$email = $_SESSION['authUser'][0];
+			$name = '';
+			$address = '';
+			$phone = '';
+			
+			require_once('Model/OrderCriteria.php');
+			$criteria = new OrderCriteria();
+			$criteria->CustomerEmail_Equals = $_SESSION['authUser'][0];
+			
+			$criteria->SetOrder('OrderNum', true);
+			
+			$previousOrder = $this->Phreezer->Query('Order', $criteria)->ToObjectArray();
+			
+			if(count($previousOrder) > 0)
+			{
+				$name = $previousOrder[0]->CustomerName;
+				$address = $previousOrder[0]->CustomerAddress;
+				$phone = $previousOrder[0]->CustomerPhone;
+			}
+			
 			$this->Assign('errors', array());
-			$this->Assign('inputData', array('name' => '', 'address' => '', 'phone' => '', 'email' => $_SESSION['authUser']));
+			$this->Assign('inputData', array('name' => $name, 'address' => $address, 'phone' => $phone, 'email' => $email));
 			$this->Render('ShoppingCartCustomer');
 		}
 	}
@@ -169,11 +184,8 @@ class StoreController extends AppBaseController
 	{
 		if(!isset($_SESSION['authUser']))
 		{
-			?>
-				<script type="text/javascript">
-					window.location.href = './login';
-				</script>
-			<?php
+			header("Location: ./login?redirecturl=customerdetails");
+			exit();
 		}
 		else
 		{
@@ -245,7 +257,7 @@ class StoreController extends AppBaseController
 					$order->CustomerName = $name;
 					$order->CustomerPhone = $phone;
 					
-					$order->Save();
+					$order->Save(true);
 					//
 					//
 					foreach($_SESSION['CartItems'] as $id => $item)
@@ -259,7 +271,7 @@ class StoreController extends AppBaseController
 						$orderDetails->OrderId = $orderId;
 						$orderDetails->ProductId = $id;
 						
-						$orderDetails->Save();
+						$orderDetails->Save(true);
 					}
 					//
 					
@@ -326,6 +338,7 @@ class StoreController extends AppBaseController
 				mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
 				);
 	}
+
 
 }
 

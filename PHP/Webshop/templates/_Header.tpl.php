@@ -65,16 +65,22 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="./productlist">Termékek</a></li>
-                        <li><a href="./shoppingcart">Kosár</a></li>
+                        <li><a href="./shoppingcart">Kosár (<?php echo isset($_SESSION['CartItems']) ? count($_SESSION['CartItems']) : '0'; ?>)</a></li>
                         <li><a href="./about">Információ</a></li>
                         <li><a href="./contact">Kapcsolat</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                     	<?php if(isset($_SESSION['authUser']))
                     		{
+                    			if($_SESSION['authUser'][1] == 'MANAGER')
+                    			{
                     	?>
-                    			<li><a href=""><?php echo ($_SESSION['authUser']); ?></a></li>
-                    			<li><a href="logout">Kijelentkezés</a></li>
+                    				<li><a href="./manageproducts">Készlet</a></li>
+                    	<?php			
+                    			}
+                    	?>
+                    			<li><a href=""><?php echo ($_SESSION['authUser'][0]); ?></a></li>
+                    			<li><a href="./logout">Kijelentkezés</a></li>
                     	<?php
                     		}
                     		else
@@ -89,7 +95,7 @@
                 </div>
             </div>
         </div> 
-			
+		<div class="col-md-10 col-md-offset-1">	
 			
 			
 			
