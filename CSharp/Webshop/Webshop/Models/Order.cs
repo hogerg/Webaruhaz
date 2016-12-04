@@ -20,17 +20,11 @@ namespace Webshop.Models
         [ScaffoldColumn(false)]
         public string Username { get; set; }
 
-
-        [Required(ErrorMessage = "Vezetéknév kötelező")]
-        [DisplayName("Vezetéknév")]
+        [Required(ErrorMessage = "Név kötelező")]
+        [DisplayName("Név")]
         [StringLength(160)]
-        public string LastName { get; set; }
+        public string Name { get; set; }
 
-        [Required(ErrorMessage = "Keresztnév kötelező")]
-        [DisplayName("Keresztnév")]
-        [StringLength(160)]
-        public string FirstName { get; set; }
-        
         [Required(ErrorMessage = "Cím kötelező")]
         [DisplayName("Cím")]
         [StringLength(70)]

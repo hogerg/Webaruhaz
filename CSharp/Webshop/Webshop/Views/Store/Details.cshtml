@@ -1,13 +1,13 @@
 ﻿@model Webshop.Models.Product
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Termék részletei";
 }
 
 <div class="container">
     <div class="row">
         <div class="col-md-6 text-center">
-            <img class="img-responsive" src="@Model.Category.PictureURL" alt="">
+            <img class="img-responsive" src="~/Content/images/categories/@(Model.Category.PictureURL).jpg" alt="">
             <br />
             <div class="row-fluid">
                 @Html.ActionLink("Kosárba", "AddToCart", "ShoppingCart", new { id = Model.ProductID }, new { @class = "btn btn-primary" })

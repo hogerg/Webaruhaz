@@ -1,34 +1,35 @@
 ﻿@model Webshop.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Regisztráció";
 }
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal col-md-offset-2", role = "form" }))
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4 class="col-md-offset-2">Regisztráció</h4>
+    <h2 class="text-center">Regisztráció</h2>
     <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.ValidationSummary("", new { @class = "text-danger col-md-6 col-md-offset-3" })
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label" })
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-5 control-label" })
         <div class="col-md-6">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Password, "Jelszó", new { @class = "col-md-4 control-label" })
+        @Html.LabelFor(m => m.Password, "Jelszó", new { @class = "col-md-5 control-label" })
         <div class="col-md-6">
             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, "Jelszó megerősítése", new { @class = "col-md-4 control-label" })
+        @Html.LabelFor(m => m.ConfirmPassword, "Jelszó megerősítése", new { @class = "col-md-5 control-label" })
         <div class="col-md-6">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
     </div>
+    @Html.Hidden("UserRole", "Customer")
     <div class="form-group">
-        <div class="col-md-offset-4 col-md-8">
+        <div class="text-center">
             <input type="submit" class="btn btn-default" value="Regisztráció" />
         </div>
     </div>

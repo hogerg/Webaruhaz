@@ -16,10 +16,11 @@ namespace Webshop.Models
         [DisplayName("Kategória")]
         public int CategoryID { get; set; }
 
+        [Required(ErrorMessage = "Név kötelező")]
         [StringLength(50)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Az ár kötelező")]
+        [Required(ErrorMessage = "Ár kötelező")]
         public int Price { get; set; }
 
         public virtual Category Category { get; set; }

@@ -41,7 +41,6 @@ namespace Webshop.Controllers
         // GET: /Store/Browse
         public ActionResult Browse(string category)
         {
-            // Retrieve Category and its Associated Products from database
             var categoryModel = storeDB.Categories.Include("Products").Single(c => c.Name == category);
             return View(categoryModel);
         }

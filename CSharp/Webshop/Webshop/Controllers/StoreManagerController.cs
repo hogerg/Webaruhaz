@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,6 +13,7 @@ using Webshop.Models;
 
 namespace Webshop.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class StoreManagerController : Controller
     {
         private StoreEntities db = new StoreEntities();
@@ -44,8 +48,6 @@ namespace Webshop.Controllers
         }
 
         // POST: StoreManager/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProductID,CategoryID,Name,Price")] Product product)
@@ -78,8 +80,6 @@ namespace Webshop.Controllers
         }
 
         // POST: StoreManager/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProductID,CategoryID,Name,Price")] Product product)
@@ -106,7 +106,9 @@ namespace Webshop.Controllers
             {
                 return HttpNotFound();
             }
-            return View(product);
+            db.Products.Remove(product);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // POST: StoreManager/Delete/5
@@ -143,15 +145,34 @@ namespace Webshop.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateCategory([Bind(Include = "Name,PictureURL")] Category category)
         {
+            if(db.Categories.Where(c => c.Name.Contains(category.Name)).Count() > 0)
+            {
+                ViewBag.CategoryName = "Már létező kategória!";
+                return View();
+            }
+
+            if(Request.Files.Count == 0 || Request.Files[0].ContentLength == 0)
+            {
+                ViewBag.Picture = "Kérem válasszon képet!";
+                return View();
+            }
+
             if (ModelState.IsValid)
             {
-                Console.WriteLine("Valid category");
+                foreach(string file in Request.Files)
+                {
+                    var postedFile = Request.Files[file];
+                    String fileName = System.Guid.NewGuid().ToString();
+                    //postedFile.SaveAs(Server.MapPath("~/Content/images/categories/") + fileName + ".jpg");
+                    SaveImage(postedFile, fileName);
+                    category.PictureURL = fileName;
+                }
+
                 db.Categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Categories");
             }
 
-            Console.WriteLine("Invalid category");
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "Name", category.CategoryID);
             return View(category);
         }
@@ -167,17 +188,71 @@ namespace Webshop.Controllers
             {
                 return HttpNotFound();
             }
-            return View(category);
-        }
-
-        [HttpPost, ActionName("DeleteCategory")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteCategoryConfirmed(int id)
-        {
-            Category category = db.Categories.Find(id);
             db.Categories.Remove(category);
             db.SaveChanges();
             return RedirectToAction("Categories");
+        }
+
+        private void SaveImage(HttpPostedFileBase file, String fileName)
+        {
+            String path = Server.MapPath("~/Content/images/categories/");
+
+            Image src = Image.FromStream(file.InputStream);
+            Image blank = Image.FromFile(path + "blank.jpg");
+            Image resizedPic = src;
+
+            int maxDim = 600;
+            float src_w = src.Width;
+            float src_h = src.Height;
+            float ratio = src_w / src_h;
+
+            if(src_w > maxDim || src_h > maxDim)
+            {
+                if(ratio > 0)
+                {
+                    src_w = maxDim;
+                    src_h = maxDim / ratio;
+                }
+                else
+                {
+                    src_w = maxDim * ratio;
+                    src_h = maxDim;
+                }
+            }
+
+            resizedPic = (Image)(new Bitmap(src, new Size((int)src_w, (int)src_h)));
+
+            using (blank)
+            {
+                using (var bitmap = new Bitmap(maxDim, maxDim))
+                {
+                    using (var canvas = Graphics.FromImage(bitmap))
+                    {
+                        canvas.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        canvas.DrawImage(blank,
+                                         new Rectangle(0,
+                                                       0,
+                                                       maxDim,
+                                                       maxDim),
+                                         new Rectangle(0,
+                                                       0,
+                                                       blank.Width,
+                                                       blank.Height),
+                                         GraphicsUnit.Pixel);
+                        canvas.DrawImage(resizedPic,
+                                         (bitmap.Width - resizedPic.Width) / 2,
+                                         (bitmap.Height - resizedPic.Height) / 2);
+                        canvas.Save();
+                    }
+                    try
+                    {
+                        bitmap.Save(path + fileName + ".jpg",
+                                    System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                    catch (Exception ex) { }
+                }
+            }
+
         }
     }
 }

@@ -14,45 +14,37 @@ namespace MvcMusicStore.Controllers
         {
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
-            // Set up our ViewModel
             var viewModel = new ShoppingCartViewModel
             {
                 CartItems = cart.GetCartItems(),
                 CartTotal = cart.GetTotal()
             };
-            // Return the view
+
             return View(viewModel);
         }
         //
         // GET: /Store/AddToCart/5
         public ActionResult AddToCart(int id)
         {
-            // Retrieve the product from the database
             var addedProduct = storeDB.Products.Single(product => product.ProductID == id);
 
-            // Add it to the shopping cart
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
             cart.AddToCart(addedProduct);
 
-            // Go back to the main store page for more shopping
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Store");
         }
         //
         // AJAX: /ShoppingCart/RemoveFromCart/5
         [HttpPost]
         public ActionResult RemoveFromCart(int id)
         {
-            // Remove the item from the cart
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
-            // Get the name of the product to display confirmation
             string productName = storeDB.Carts.Single(item => item.RecordId == id).Product.Name;
 
-            // Remove from cart
             int itemCount = cart.RemoveFromCart(id);
 
-            // Display the confirmation message
             var results = new ShoppingCartRemoveViewModel
             {
                 Message = Server.HtmlEncode(productName) +

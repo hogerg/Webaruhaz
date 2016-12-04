@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Webshop.Models;
 using System.Net.Mail;
+using System.Diagnostics;
 
 namespace Webshop.Controllers
 {
@@ -12,13 +13,22 @@ namespace Webshop.Controllers
     public class CheckoutController : Controller
     {
         StoreEntities storeDB = new StoreEntities();
-        const string PromoCode = "FREE";
 
         //
         // GET: /Checkout/AddressAndPayment
         public ActionResult AddressAndPayment()
         {
-            return View();
+            Order previousOrder = new Order();
+            previousOrder.Email = User.Identity.Name;
+
+            List<Order> prevOrders = storeDB.Orders.Where(o => o.Email == User.Identity.Name).ToList();
+            if(prevOrders.Count > 0)
+            {
+                previousOrder = prevOrders[0];
+            }
+
+            ViewBag.PreviousOrder = previousOrder;
+            return View(previousOrder);
         }
 
         //
@@ -31,7 +41,6 @@ namespace Webshop.Controllers
 
             try
             {
-                //if (string.Equals(values["PromoCode"], PromoCode, StringComparison.OrdinalIgnoreCase) == false)
                 if (!values["Accept"].Contains("true"))
                 {
                     return View(order);
@@ -41,10 +50,9 @@ namespace Webshop.Controllers
                     order.Username = User.Identity.Name;
                     order.OrderDate = DateTime.Now;
 
-                    //Save Order
                     storeDB.Orders.Add(order);
                     storeDB.SaveChanges();
-                    //Process the order
+
                     var cart = ShoppingCart.GetCart(this.HttpContext);
                     cart.CreateOrder(order);
 
@@ -53,7 +61,6 @@ namespace Webshop.Controllers
             }
             catch
             {
-                //Invalid - redisplay with errors
                 return View(order);
             }
         }
@@ -62,7 +69,6 @@ namespace Webshop.Controllers
         // GET: /Checkout/Complete
         public ActionResult Complete(int id)
         {
-            // Validate customer owns this order
             bool isValid = storeDB.Orders.Any(o => o.OrderId == id && o.Username == User.Identity.Name);
 
             if (isValid)
@@ -73,7 +79,7 @@ namespace Webshop.Controllers
                 smtpServer.UseDefaultCredentials = false;
                 smtpServer.EnableSsl = true;
                 smtpServer.Credentials = new System.Net.NetworkCredential("hogergwebshop", "szakdolgozat");
-                smtpServer.Port = 587; // Gmail works on this port    
+                smtpServer.Port = 587; // Gmail port   
 
                 mail.From = new MailAddress("hogergwebshop@gmail.com");
                 mail.To.Add(User.Identity.Name);

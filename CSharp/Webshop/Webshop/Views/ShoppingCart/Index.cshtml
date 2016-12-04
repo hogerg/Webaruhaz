@@ -1,22 +1,17 @@
 ﻿@model Webshop.ViewModels.ShoppingCartViewModel
 
 @{
-    ViewBag.Title = "Shopping Cart";
+    ViewBag.Title = "Kosár";
 }
 
 <script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function () {
-        // Document.ready -> link up remove event handler
         $(".RemoveLink").click(function () {
-            // Get the id from the link
             var recordToDelete = $(this).attr("data-id");
             if (recordToDelete != '') {
-                // Perform the ajax post
                 $.post("/ShoppingCart/RemoveFromCart", { "id": recordToDelete },
                     function (data) {
-                        // Successful requests get here
-                        // Update the page elements
                         if (data.ItemCount == 0) {
                             $('#row-' + data.DeleteId).fadeOut('slow');
                         } else {
@@ -33,7 +28,7 @@
 </script>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 text-center">
         <h3 style="white-space:nowrap">Fizetendő: 
             <span id="cart-total">
                 @Model.CartTotal Ft.-
@@ -41,17 +36,17 @@
         </h3>
         <hr />
         <span>
-            @Html.ActionLink("Tovább a fizetésre", "AddressAndPayment", "Checkout", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Tovább a fizetésre", "AddressAndPayment", "Checkout", null, new { @class = "btn btn-primary text-center" })
         </span>
         <hr />
-        <div id="update-message"></div>
+        <div class="text-center" id="update-message"></div>
     </div>
     <div class="col-md-8">
         <!-- Kosár tartalma -->
         @foreach (var item in Model.CartItems)
         {
             <div class="col-md-4 thumbnail" id="row-@item.RecordId">
-                <img class="img-responsive" src="@item.Product.Category.PictureURL" alt="">
+                <img class="img-responsive" src="~/Content/images/categories/@(item.Product.Category.PictureURL).jpg" alt="">
                 <div class="caption text-center" style="white-space: nowrap">
                     <h5>
                         @Html.ActionLink(item.Product.Name, "Details", "Store", new { id = item.ProductId }, null)

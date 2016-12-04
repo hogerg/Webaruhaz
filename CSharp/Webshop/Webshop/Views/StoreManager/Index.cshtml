@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Webshop.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Termékek kezelése";
 }
 
 <h2>Terméklista</h2>
@@ -37,7 +37,7 @@
         </td>
         <td>
             @Html.ActionLink("Módosítás", "Edit", new { id=item.ProductID }) |
-            @Html.ActionLink("Részletek", "Details", new { id=item.ProductID }) |
+            @Html.ActionLink("Részletek", "Details", "Store", new { id = item.ProductID }, null) |
             @Html.ActionLink("Törlés", "Delete", new { id=item.ProductID })
         </td>
     </tr>
