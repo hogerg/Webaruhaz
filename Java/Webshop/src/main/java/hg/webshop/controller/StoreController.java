@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import hg.webshop.dao.CategoryDAO;
 import hg.webshop.dao.OrderDAO;
 import hg.webshop.dao.ProductDAO;
+import hg.webshop.entity.Order;
 import hg.webshop.entity.Product;
 import hg.webshop.model.CartInfo;
 import hg.webshop.model.CartLineInfo;
@@ -21,6 +22,8 @@ import hg.webshop.model.CustomerInfo;
 import hg.webshop.model.ProductInfo;
 import hg.webshop.util.Utils;
 import hg.webshop.validator.CustomerInfoValidator;
+
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -219,6 +222,16 @@ public class StoreController {
         if (customerInfo == null) {
             customerInfo = new CustomerInfo();
         }
+        
+        Order order = orderDAO.findOrderByEmail(request.getUserPrincipal().getName());
+        
+        if(order != null)
+        {
+        	customerInfo.setEmail(order.getCustomerEmail());
+        	customerInfo.setAddress(order.getCustomerAddress());
+        	customerInfo.setName(order.getCustomerName());
+        	customerInfo.setPhone(order.getCustomerPhone());
+        }
  
         model.addAttribute("customerForm", customerInfo);
         model.addAttribute("email", customerInfo.getEmail());
@@ -251,14 +264,13 @@ public class StoreController {
         
         try {
             orderDAO.saveOrder(cartInfo);
-            
             sendPurchaseEmail(customerForm.getEmail(), customerForm.getName(), cartInfo.getOrderNum());
         } catch (Exception e) {
             return "shoppingCartCustomer";
         }
 
         Utils.removeCartInSession(request);
-         
+        request.getSession().setAttribute("cartAmount", 0);
         Utils.storeLastOrderedCartInSession(request, cartInfo);
 
         return "redirect:/shoppingCartFinalize";

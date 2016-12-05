@@ -3,10 +3,13 @@ package hg.webshop.dao.impl;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
- 
+
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+
 import hg.webshop.dao.OrderDAO;
 import hg.webshop.dao.ProductDAO;
 import hg.webshop.entity.Order;
@@ -84,6 +87,18 @@ public class OrderDAOImpl implements OrderDAO {
  
         cartInfo.setOrderNum(orderNum);
 
+    }
+    
+    public Order findOrderByEmail(String email)
+    {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria crit = session.createCriteria(Order.class);
+        crit.add(Restrictions.eq("customerEmail", email));
+        Order order = (Order) (crit.list().get(0));
+        if (order == null) {
+            return null;
+        }
+        return order;
     }
  
 }
