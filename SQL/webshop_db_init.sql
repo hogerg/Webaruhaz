@@ -55,7 +55,7 @@ CREATE TABLE `customer` (
   `password` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `user_role` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='vasarlo adatai';
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='vasarlo adatai';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +64,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'teszt@elek.hu','teszt','CUSTOMER'),(18,'hodiger@gmail.com','asd','MANAGER');
+INSERT INTO `customer` VALUES (20,'a@b.hu','7815696ecbf1c96e6894b779456d330e','CUSTOMER'),(21,'teszt@elek.hu','6c90aa3760658846a86a263a4e92630e','CUSTOMER'),(22,'hodiger@gmail.com','7815696ecbf1c96e6894b779456d330e','MANAGER');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,7 +95,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES ('15ee055b-62a5-4a98-bf4e-3fda19c7cebf',130000,'2016-11-29 21:06:52',5,'Budapest asdasd','teszt@elek.hu','teszt elek','123123'),('3b8b98c9-d3e0-40f7-a6cd-b0ff67699fde',46000,'2016-11-29 17:21:48',3,'Budapest asdasd','teszt@elek.hu','teszt elek','123123'),('873b500c-768b-43cb-8890-8a12efe4e254',56000,'2016-11-29 16:57:16',1,'Budapest asdasd','teszt@elek.hu','teszt elek','123123'),('abee3aa5-5a58-4eb3-8eea-264c62536c82',62000,'2016-12-03 22:48:29',8,'Budapest asdasd','teszt@elek.hu','teszt elek','543543'),('bb24a7a9-2ed2-4dc2-a205-acc879eff301',200000,'2016-11-29 17:45:12',4,'Budapest asdasd','teszt@elek.hu','teszt elek','123123'),('bd87eae3-9011-4aa9-bb14-ea37fa0b08c8',135000,'2016-11-29 17:08:09',2,'Budapest asdasd','teszt@elek.hu','teszt elek','123123'),('c274d37d-14c5-4c80-acee-cba0b76a7667',60000,'2016-11-30 02:23:51',6,'Budapest asdasd','hodiger@gmail.com','Hodány Gerg?','123123'),('e9d8f236-f4a1-47a7-8820-90dfaf852e46',86000,'2016-11-30 02:27:47',7,'Budapest asdasd','hodiger@gmail.com','Hodány Gerg?','asdasd');
+INSERT INTO `order` VALUES ('15ee055b-62a5-4a98-bf4e-3fda19c7cebf',130000,'2016-11-29 21:06:52',5,'Budapest asdasd','teszt@elek.hu','teszt elek','123123'),('3b8b98c9-d3e0-40f7-a6cd-b0ff67699fde',46000,'2016-11-29 17:21:48',3,'Budapest asdasd','teszt@elek.hu','teszt elek','123123'),('4bb77c1c-0b69-4070-8969-57d82c3facb2',90000,'2016-12-05 11:37:18',9,'Budapest asdasd','a@b.hu','AB','123223'),('873b500c-768b-43cb-8890-8a12efe4e254',56000,'2016-11-29 16:57:16',1,'Budapest asdasd','teszt@elek.hu','teszt elek','123123'),('912014d2-c0c1-4baf-b535-de9786bc3a31',90000,'2016-12-05 12:22:23',10,'Budapest asdasd','a@b.hu','AB','123223'),('abee3aa5-5a58-4eb3-8eea-264c62536c82',62000,'2016-12-03 22:48:29',8,'Budapest asdasd','teszt@elek.hu','teszt elek','543543'),('bb24a7a9-2ed2-4dc2-a205-acc879eff301',200000,'2016-11-29 17:45:12',4,'Budapest asdasd','teszt@elek.hu','teszt elek','123123'),('bd87eae3-9011-4aa9-bb14-ea37fa0b08c8',135000,'2016-11-29 17:08:09',2,'Budapest asdasd','teszt@elek.hu','teszt elek','123123'),('c0a64784-de86-4ebb-a8b7-6fb528e02b81',130000,'2016-12-05 12:25:46',11,'Budapest asdasd','hodiger@gmail.com','Hodány Gerg?','123123'),('c274d37d-14c5-4c80-acee-cba0b76a7667',60000,'2016-11-30 02:23:51',6,'Budapest asdasd','hodiger@gmail.com','Hodány Gerg?','123123'),('e9d8f236-f4a1-47a7-8820-90dfaf852e46',86000,'2016-11-30 02:27:47',7,'Budapest asdasd','hodiger@gmail.com','Hodány Gerg?','asdasd');
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,7 +127,7 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` VALUES ('07b4454c-6875-44b0-96ba-33243a661e63',20000,20000,1,'c274d37d-14c5-4c80-acee-cba0b76a7667',37),('50a8cc17-d95d-46f2-a6bf-083870fadd9f',22000,22000,1,'3b8b98c9-d3e0-40f7-a6cd-b0ff67699fde',38),('6ca5a7d6-d31a-4fc0-8c17-8a6b5e4b8df2',40000,40000,1,'abee3aa5-5a58-4eb3-8eea-264c62536c82',33),('771ce073-7ff1-47cc-8be8-94662db27b03',60000,60000,1,'15ee055b-62a5-4a98-bf4e-3fda19c7cebf',35),('7e885384-d91f-473a-9f7a-90efc0311821',24000,24000,1,'3b8b98c9-d3e0-40f7-a6cd-b0ff67699fde',39),('8bdadf16-ee99-4449-9b70-ec1b4006c2da',70000,70000,1,'bb24a7a9-2ed2-4dc2-a205-acc879eff301',36),('8d5d9097-434b-452c-a104-fa5c5f6ef76f',130000,65000,2,'bb24a7a9-2ed2-4dc2-a205-acc879eff301',44),('914f2a74-dbb3-425e-83ed-818ebc34f9d4',40000,40000,1,'c274d37d-14c5-4c80-acee-cba0b76a7667',33),('a1da1116-6cb6-4027-ae51-d3f2b158ef40',65000,65000,1,'bd87eae3-9011-4aa9-bb14-ea37fa0b08c8',44),('a4e560bd-3aa2-4a45-9249-120fed16d002',26000,26000,1,'e9d8f236-f4a1-47a7-8820-90dfaf852e46',40),('c249d0ef-a499-41da-8d0e-75ba89a03b6a',70000,70000,1,'bd87eae3-9011-4aa9-bb14-ea37fa0b08c8',36),('d55ba9d6-b543-49b3-8ad2-c84787f2a1fb',60000,60000,1,'e9d8f236-f4a1-47a7-8820-90dfaf852e46',35),('d9a449c9-7bc5-4f9f-bbc1-71ef35cde9ac',70000,70000,1,'15ee055b-62a5-4a98-bf4e-3fda19c7cebf',36),('dcd33f28-6ec6-4d0a-b6d4-5f3836e30eb8',24000,24000,1,'873b500c-768b-43cb-8890-8a12efe4e254',39),('f6dcb62e-065e-4c98-8bea-cb75d107b9f7',22000,22000,1,'abee3aa5-5a58-4eb3-8eea-264c62536c82',38),('f72216d9-61c3-4b36-a2ed-7d3d4d919ee8',32000,32000,1,'873b500c-768b-43cb-8890-8a12efe4e254',46);
+INSERT INTO `order_details` VALUES ('07b4454c-6875-44b0-96ba-33243a661e63',20000,20000,1,'c274d37d-14c5-4c80-acee-cba0b76a7667',37),('21eaab4d-028c-4dbc-84a7-9ee8afbe48fb',40000,40000,1,'912014d2-c0c1-4baf-b535-de9786bc3a31',33),('2ad9cdea-c1a9-4657-95ec-d70caf6d3f78',50000,50000,1,'4bb77c1c-0b69-4070-8969-57d82c3facb2',34),('50a8cc17-d95d-46f2-a6bf-083870fadd9f',22000,22000,1,'3b8b98c9-d3e0-40f7-a6cd-b0ff67699fde',38),('61aa1887-e908-4769-b2bb-0e5a8bce6fb3',70000,70000,1,'c0a64784-de86-4ebb-a8b7-6fb528e02b81',36),('6ca5a7d6-d31a-4fc0-8c17-8a6b5e4b8df2',40000,40000,1,'abee3aa5-5a58-4eb3-8eea-264c62536c82',33),('6de4ed16-535b-4d17-9110-a0f00d7265a8',60000,60000,1,'c0a64784-de86-4ebb-a8b7-6fb528e02b81',35),('771ce073-7ff1-47cc-8be8-94662db27b03',60000,60000,1,'15ee055b-62a5-4a98-bf4e-3fda19c7cebf',35),('7e885384-d91f-473a-9f7a-90efc0311821',24000,24000,1,'3b8b98c9-d3e0-40f7-a6cd-b0ff67699fde',39),('8bdadf16-ee99-4449-9b70-ec1b4006c2da',70000,70000,1,'bb24a7a9-2ed2-4dc2-a205-acc879eff301',36),('8d5d9097-434b-452c-a104-fa5c5f6ef76f',130000,65000,2,'bb24a7a9-2ed2-4dc2-a205-acc879eff301',44),('914f2a74-dbb3-425e-83ed-818ebc34f9d4',40000,40000,1,'c274d37d-14c5-4c80-acee-cba0b76a7667',33),('a1da1116-6cb6-4027-ae51-d3f2b158ef40',65000,65000,1,'bd87eae3-9011-4aa9-bb14-ea37fa0b08c8',44),('a4e560bd-3aa2-4a45-9249-120fed16d002',26000,26000,1,'e9d8f236-f4a1-47a7-8820-90dfaf852e46',40),('c249d0ef-a499-41da-8d0e-75ba89a03b6a',70000,70000,1,'bd87eae3-9011-4aa9-bb14-ea37fa0b08c8',36),('c4e42b30-94ec-4e31-8d97-2a5916586915',50000,50000,1,'912014d2-c0c1-4baf-b535-de9786bc3a31',34),('d55ba9d6-b543-49b3-8ad2-c84787f2a1fb',60000,60000,1,'e9d8f236-f4a1-47a7-8820-90dfaf852e46',35),('d9a449c9-7bc5-4f9f-bbc1-71ef35cde9ac',70000,70000,1,'15ee055b-62a5-4a98-bf4e-3fda19c7cebf',36),('dcd33f28-6ec6-4d0a-b6d4-5f3836e30eb8',24000,24000,1,'873b500c-768b-43cb-8890-8a12efe4e254',39),('e42ba7f5-a9e6-43e1-b813-49695c5977b9',40000,40000,1,'4bb77c1c-0b69-4070-8969-57d82c3facb2',33),('f6dcb62e-065e-4c98-8bea-cb75d107b9f7',22000,22000,1,'abee3aa5-5a58-4eb3-8eea-264c62536c82',38),('f72216d9-61c3-4b36-a2ed-7d3d4d919ee8',32000,32000,1,'873b500c-768b-43cb-8890-8a12efe4e254',46);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -168,4 +168,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-04  3:24:55
+-- Dump completed on 2016-12-05 23:06:57

@@ -1,7 +1,10 @@
 package hg.webshop.controller;
 
 import hg.webshop.dao.CustomerDAO;
+import hg.webshop.entity.Customer;
 import hg.webshop.model.AccountInfo;
+import hg.webshop.util.HashGenerationException;
+import hg.webshop.util.HashUtil;
 import hg.webshop.validator.AccountInfoValidator;
 
 import java.util.Properties;
@@ -80,6 +83,7 @@ public class AccountController {
             return "register";
         }
         try {
+        	accountInfo.setPassword(HashUtil.generateMD5(accountInfo.getPassword()));
             customerDAO.save(accountInfo);
             sendRegistrationEmail(accountInfo.getEmail());
         } catch (Exception e) {
