@@ -19,7 +19,7 @@
       </div>
     </c:if>
  
-    <form:form modelAttribute="categoryForm" method="POST" enctype="multipart/form-data">
+    <form:form modelAttribute="categoryForm" method="POST" action="" enctype="multipart/form-data">
         <table style="margin: 0px auto;"> 
             <tr>
                 <td>Név </td>

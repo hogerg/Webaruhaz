@@ -27,8 +27,6 @@
 	    <div class="col-md-8">
 	        <!-- Kosár tartalma -->
 	        <c:if test="${not empty cartForm and not empty cartForm.cartLines   }">
-		        <form:form method="POST" modelAttribute="cartForm"
-		            action="${pageContext.request.contextPath}/shoppingCart">
 		 
 		            <c:forEach items="${cartForm.cartLines}" var="cartLineInfo"
 		                varStatus="varStatus">
@@ -41,8 +39,7 @@
 		                			${cartLineInfo.productInfo.name}
 		                		</h5>
 		                		<h5>
-		                			Termékkód: ${cartLineInfo.productInfo.id} <form:hidden
-		                                path="cartLines[${varStatus.index}].productInfo.id" />
+		                			Termékkód: ${cartLineInfo.productInfo.id}
 		                		</h5>
 		                		<h5>
 		                			Ár: 
@@ -51,7 +48,7 @@
 		                		</h5>
 		                		<div>
 		                			Darabszám: 
-		                			<form:input path="cartLines[${varStatus.index}].quantity" />
+		                			${cartLineInfo.quantity }
 		                		</div>
 		                		<br/>
 		                		<div>
@@ -67,7 +64,7 @@
    
 		                </div>
 		            </c:forEach>
-		        </form:form>
+		        
 		    </c:if>
 	    </div>
 	</div>

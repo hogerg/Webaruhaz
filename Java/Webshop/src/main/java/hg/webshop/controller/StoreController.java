@@ -176,17 +176,7 @@ public class StoreController {
         }
         return "redirect:/shoppingCart";
     }
- 
-    @RequestMapping(value = { "/shoppingCart" }, method = RequestMethod.POST)
-    public String shoppingCartUpdateQty(HttpServletRequest request, //
-            Model model, //
-            @ModelAttribute("cartForm") CartInfo cartForm) {
- 
-        CartInfo cartInfo = Utils.getCartInSession(request);
-        cartInfo.updateQuantity(cartForm);
- 
-        return "redirect:/shoppingCart";
-    }
+
  
     @RequestMapping(value = { "/shoppingCart" }, method = RequestMethod.GET)
     public String shoppingCartHandler(HttpServletRequest request, Model model) {
@@ -221,7 +211,9 @@ public class StoreController {
         CustomerInfo customerInfo = cartInfo.getCustomerInfo();
         if (customerInfo == null) {
             customerInfo = new CustomerInfo();
+            customerInfo.setEmail(request.getUserPrincipal().getName());
         }
+        customerInfo.setEmail(request.getUserPrincipal().getName());
         
         Order order = orderDAO.findOrderByEmail(request.getUserPrincipal().getName());
         

@@ -94,10 +94,11 @@ public class OrderDAOImpl implements OrderDAO {
         Session session = sessionFactory.getCurrentSession();
         Criteria crit = session.createCriteria(Order.class);
         crit.add(Restrictions.eq("customerEmail", email));
-        Order order = (Order) (crit.list().get(0));
-        if (order == null) {
+        
+        if (crit.list().size() == 0) {
             return null;
         }
+        Order order = (Order) (crit.list().get(0));
         return order;
     }
  
