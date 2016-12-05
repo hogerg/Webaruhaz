@@ -13,7 +13,27 @@ using Webshop.Models;
 
 namespace Webshop.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    public class AuthorizeAdminAttribute : AuthorizeAttribute
+    {
+
+        public override void OnAuthorization(AuthorizationContext filterContext)
+        {
+            base.OnAuthorization(filterContext);
+            if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
+            {
+                filterContext.Result = new RedirectResult("/AccessDenied");
+                return;
+            }
+
+            if (filterContext.Result is HttpUnauthorizedResult)
+            {
+                filterContext.Result = new RedirectResult("/AccessDenied");
+                return;
+            }
+        }
+    }
+
+    [AuthorizeAdmin(Roles = "Admin")]
     public class StoreManagerController : Controller
     {
         private StoreEntities db = new StoreEntities();
