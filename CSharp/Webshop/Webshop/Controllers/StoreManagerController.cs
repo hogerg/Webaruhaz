@@ -21,13 +21,13 @@ namespace Webshop.Controllers
             base.OnAuthorization(filterContext);
             if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
             {
-                filterContext.Result = new RedirectResult("/AccessDenied");
+                filterContext.Result = new RedirectResult("/Home/AccessDenied");
                 return;
             }
 
             if (filterContext.Result is HttpUnauthorizedResult)
             {
-                filterContext.Result = new RedirectResult("/AccessDenied");
+                filterContext.Result = new RedirectResult("/Home/AccessDenied");
                 return;
             }
         }

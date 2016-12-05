@@ -12,10 +12,10 @@ namespace Webshop.Models
         {
             var categories = new List<Category>
             {
-                new Category { Name = "Kijelző", PictureURL = "/Content/images/categories/mock_monitor.jpg" },
-                new Category { Name = "Merevlemez", PictureURL = "/Content/images/categories/mock_hdd.jpg" },
-                new Category { Name = "Processzor", PictureURL = "/Content/images/categories/mock_cpu.jpg" },
-                new Category { Name = "Memóriakártya", PictureURL = "/Content/images/categories/mock_ram.jpg" }
+                new Category { Name = "Kijelző", PictureURL = "mock_monitor" },
+                new Category { Name = "Merevlemez", PictureURL = "mock_hdd" },
+                new Category { Name = "Processzor", PictureURL = "mock_cpu" },
+                new Category { Name = "Memóriakártya", PictureURL = "mock_ram" }
             };
 
             categories.ForEach(c => context.Categories.Add(c));

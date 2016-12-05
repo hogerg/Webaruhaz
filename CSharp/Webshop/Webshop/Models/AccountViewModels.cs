@@ -72,7 +72,6 @@ namespace Webshop.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "A jelszó legalább {2} karakter hosszú legyen!", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Jelszó")]
         public string Password { get; set; }
