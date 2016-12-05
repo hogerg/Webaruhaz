@@ -166,7 +166,7 @@ class AccountController extends AppBaseController
 				$customer->Save();
 				
 				$this->SendRegistrationEmail($email);
-				
+				$this->Assign("errors", array());
 				$this->Render('Login');
 			}
 		}

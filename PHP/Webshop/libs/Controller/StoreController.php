@@ -26,7 +26,7 @@ class StoreController extends AppBaseController
 		// $this->RequirePermission(ExampleUser::$PERMISSION_USER,'SecureExample.LoginForm');
 	}
 
-	public function List()
+	public function ProductList()
 	{		
 		require_once('Model/ProductCriteria.php');
 		$criteria = new ProductCriteria();
@@ -277,11 +277,13 @@ class StoreController extends AppBaseController
 					
 					$this->SendOrderConfirmationEmail($email, $name, $lastOrderNum+1);
 					$this->Assign('orderNum', $lastOrderNum+1);
-					$this->Render('ShoppingCartFinalize');
+					
 					if(isset($_SESSION['CartItems']))
 					{
 						unset($_SESSION['CartItems']);
 					}
+					
+					$this->Render('ShoppingCartFinalize');
 				}
 			}
 			catch (Exception $ex)

@@ -75,8 +75,8 @@ GlobalConfig::$ROUTE_MAP = array(
 	'GET:register' => array('route' => 'Account.Register'),
 	'POST:register' => array('route' => 'Account.RegisterSave'),
 		
-	'GET:productlist' => array('route' => 'Store.List'),
-	'POST:productlist' => array('route' => 'Store.List'),
+	'GET:productlist' => array('route' => 'Store.ProductList'),
+	'POST:productlist' => array('route' => 'Store.ProductList'),
 	'GET:details' => array('route' => 'Store.Details'),
 	'GET:shoppingcart' => array('route' => 'Store.ShoppingCart'),
 	'GET:additem' => array('route' => 'Store.ShoppingCartAdd'),
