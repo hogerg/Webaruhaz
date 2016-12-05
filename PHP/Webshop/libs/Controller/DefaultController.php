@@ -34,6 +34,11 @@ class DefaultController extends AppBaseController
 	{
 		$this->Render();
 	}
+	
+	public function Error403()
+	{
+		$this->Render('403');
+	}
 
 	/**
 	 * Display a fatal error message

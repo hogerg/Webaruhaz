@@ -66,6 +66,8 @@ GlobalConfig::$ROUTE_MAP = array(
 	// default controller when no route specified
 	'GET:' => array('route' => 'Home.Home'),
 		
+	'GET:403' => array('route' => 'Default.Error403'),
+		
 	'GET:about' => array('route' => 'Home.About'),
 	'GET:contact' => array('route' => 'Home.Contact'),
 		

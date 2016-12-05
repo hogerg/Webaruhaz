@@ -28,7 +28,7 @@ class ManagerController extends AppBaseController
 	{
 		if(!isset($_SESSION['authUser']) || $_SESSION['authUser'][1] != 'MANAGER')
 		{
-			header('location: ./');
+			header('location: ./403');
 			exit();
 		}
 	}

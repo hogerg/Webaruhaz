@@ -76,9 +76,9 @@ class AccountController extends AppBaseController
 				else
 				{
 					$c = $customer[0];
-					if($password != $c->Password)
+					if(md5($password) != $c->Password)
 					{
-						$errors += array('email' => 'Hibás jelszó');
+						$errors += array('password' => 'Hibás jelszó');
 						$this->Assign('errors', $errors);
 						$this->Render('login');
 					}
@@ -133,7 +133,7 @@ class AccountController extends AppBaseController
 			
 			$customer = new Customer($this->Phreezer);
 			$customer->Email = $email;
-			$customer->Password = $password;
+			$customer->Password = md5($password);
 			$customer->UserRole = 'CUSTOMER';
 
 			$errors = array();
@@ -166,8 +166,11 @@ class AccountController extends AppBaseController
 				$customer->Save();
 				
 				$this->SendRegistrationEmail($email);
-				$this->Assign("errors", array());
-				$this->Render('Login');
+				//$this->Assign("errors", array());
+				//$this->Render('Login');
+				
+				header('location: ./login');
+				exit();
 			}
 		}
 		catch (Exception $ex)
