@@ -48,12 +48,12 @@ namespace Webshop.Models
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Email kötelező!")]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Jelszó kötelező!")]
         [DataType(DataType.Password)]
         [Display(Name = "Jelszó")]
         public string Password { get; set; }
@@ -66,12 +66,12 @@ namespace Webshop.Models
     {
         public string UserRole { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Email kötelező!")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Jelszó kötelező!")]
         [DataType(DataType.Password)]
         [Display(Name = "Jelszó")]
         public string Password { get; set; }
